@@ -1,0 +1,105 @@
+{
+        "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+        "contentVersion": "1.0.0.0",
+        "parameters": {
+                "vmSize": {
+                        "type": "string"
+                },
+                "location": {
+                        "type": "string"
+                },
+                "existingVirtualNetworkName": {
+                        "type": "string",
+                        "metadata": {
+                                "description": "Name of the existing VNET"
+                        }
+                }
+        },
+        "variables": {
+                "username": "vsts",
+                "solutionName": "[concat(replace(parameters('vmSize'),'_',''),'-',parameters('location'))]",
+                "apiVersion": "2015-05-01-preview",
+                "imagePublisher": "Canonical",
+                "imageOffer": "UbuntuServer",
+                "ubuntuOSVersion": "16.04.0-LTS",
+                "OSDiskName": "[concat(variables('solutionName'),'OSDisk')]",
+                "nicName": "[concat(variables('solutionName'),'Nic')]",
+                "subnetName": "default",
+                "subnetPrefix": "10.0.0.0/24",
+                "storageAccountType": "Standard_LRS",
+                "publicIPAddressName": "[concat(variables('solutionName'),'PublicIp')]",
+                "publicIPAddressType": "Dynamic",
+                "vmStorageAccountContainerName": "vhds",
+                "vmName": "[concat(variables('solutionName'),'VM')]",
+                "sshKey": "XXX",
+                "vnetID": "[resourceId(resourceGroup().name, 'Microsoft.Network/virtualNetworks', parameters('existingVirtualNetworkName'))]",                                      
+                "subnetRef": "[concat(variables('vnetID'),'/subnets/', variables('subnetName'))]"                                                                                   
+        },                                                                                                                                                                          
+        "resources": [                                                                                                                                                              
+                {                                                                                                                                                                   
+                        "apiVersion": "[variables('apiVersion')]",                                                                                                                  
+                        "type": "Microsoft.Network/networkInterfaces",                                                                                                              
+                        "name": "[variables('nicName')]",                                                                                                                           
+                        "location": "[parameters('location')]",                                                                                                                     
+                        "tags": {                                                                                                                                                   
+                                "displayName": "NetworkInterface"                                                                                                                   
+                        },                                                                                                                                                          
+                        "properties": {                                                                                                                                             
+                                "ipConfigurations": [{                                                                                                                              
+                                        "name": "[concat(variables('solutionName'),'ipconfig1')]",                                                                                  
+                                        "properties": {                                                                                                                             
+                                                "privateIPAllocationMethod": "Dynamic",                                                                                             
+                                                "subnet": {                                                                                                                         
+                                                        "id": "[variables('subnetRef')]"                                                                                            
+                                                }                                                                                                                                   
+                                        }                                                                                                                                           
+                                }]                                                                                                                                                  
+                        }                                                                                                                                                           
+                },                                                                                                                                                                  
+                {                                                                                                                                                                   
+                        "apiVersion": "2016-04-30-preview",     
+                        "type": "Microsoft.Compute/virtualMachines",                                                                                                                
+                        "name": "[variables('vmName')]",                                                                                                                            
+                        "location": "[parameters('location')]",                                                                                                                     
+                        "dependsOn": [                                                                                                                                              
+                                "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'))]"                                                                            
+                        ],                                                                                                                                                          
+                        "properties": {                                                                                                                                             
+                                "hardwareProfile": {                                                                                                                                
+                                        "vmSize": "[parameters('vmSize')]"                                                                                                          
+                                },                                                                                                                                                  
+                                "osProfile": {                                                                                                                                      
+                                        "computerName": "[variables('vmName')]",                                                                                                    
+                                        "adminUsername": "[variables('username')]",                                                                                                 
+                                        "linuxConfiguration": {                                                                                                                     
+                                                "disablePasswordAuthentication": true,                                                                                              
+                                                "ssh": {                                                                                                                            
+                                                        "publicKeys": [{                                                                                                            
+                                                                "path": "[variables('sshKeyPath')]",                                                                                
+                                                                "keyData": "[variables('sshKey')]"                                                                                  
+                                                        }]                                                                                                                          
+                                                }                                                                                                                                   
+                                        }                                                                                                                                           
+                                                                                                                                                                                    
+                                },                                                                                                                                                  
+                                "storageProfile": {                                                                                                                                 
+                                        "imageReference": {                                                                                                                         
+                                                "publisher": "[variables('imagePublisher')]",                                                                                       
+                                                "offer": "[variables('imageOffer')]",                                                                                               
+                                                "sku": "[variables('ubuntuOSVersion')]",                                                                                            
+                                                "version": "latest"                                                                                                                 
+                                        },                                                                                                                                          
+                                        "osDisk": {                                                                                                                                 
+                                                "caching": "ReadWrite",                                                                                                             
+                                                "createOption": "FromImage"                                                                                                         
+                                        }                                                                                                                                           
+                                },                                                                                                                                                  
+                                "networkProfile": {                                                                                                                                 
+                                        "networkInterfaces": [{                                                                                                                     
+                                                "id": "[resourceId('Microsoft.Network/networkInterfaces',variables('nicName'))]"                                                    
+                                        }]                                                                                                                                          
+                                }                                                                                                                                                   
+                        }                                                                                                                                                           
+                }                                                                                                                                                                   
+        ]                                                                                                                                                                           
+}   

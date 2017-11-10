@@ -1,0 +1,8 @@
+Dockerfile
+Dockerfile.backup
+.DS_Store
+frontend/.DS_Store
+Dockerfile.tmp
+frontend/java/.idea/
+frontend/java/src/main/resources/application.properties
+frontend/java/target/

@@ -1,0 +1,14 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: vmcr8provision
+spec:
+  schedule: "30 21,03,09,15 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: vmcr8provision
+            image: vmcr8tester.azurecr.io/provision:latest
+          restartPolicy: OnFailure

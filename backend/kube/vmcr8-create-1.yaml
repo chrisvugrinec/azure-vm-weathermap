@@ -1,0 +1,14 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: vmcr8tester1
+spec:
+  schedule: "1 22,04,10,16 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: vmcr8tester
+            image: vmcr8tester.azurecr.io/vmcr8tester:latest
+          restartPolicy: OnFailure

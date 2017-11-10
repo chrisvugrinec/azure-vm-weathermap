@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>Azure VMcr8 test tool - overview</title>
+<sec:csrfMetaTags />
+</head>
+<style type="text/css">
+    body {
+     background-image: url(worldmap.png);
+     background-repeat: no-repeat;
+     background-color: grey;
+     background-position: 0px 0px;
+    }
+</style>
+
+<body>
+
+
+     <div class="broadcasts1" style='font-family:Arial, Helvetica,sans-serif; color:#4256f4;font-weight: bold;  background-size: 30px 30px; height: 30px; width: 200px; background-repeat: no-repeat; position: absolute; top: 50px; left: 1000px;'><p th:text="'Total builds: ' + ${totalvms} " /></div>
+     <div class="broadcasts2" style='font-family:Arial, Helvetica,sans-serif; color:#4256f4;font-weight: bold;  background-size: 30px 30px; height: 30px; width: 200px; background-repeat: no-repeat; position: absolute; top: 85px; left: 1000px;'><p th:text="'Total builds today: ' + ${totalvmstoday} " /></div>
+	 <div class="worldmap"></div>
+	 <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+
+
+<div id='canadaeast'         style='background: url(unknown.png); font-family:Arial, Helvetica,sans-serif; color:#4256f4;font-weight: bold;  background-size: 30px 30px; height: 30px; width: 30px; background-repeat: no-repeat; position: absolute; top: 255px; left: 458px;'></div>
+<div id='canadacentral'      style='background: url(unknown.png); font-family:Arial, Helvetica,sans-serif; color:#4256f4;font-weight: bold;  background-size: 30px 30px; height: 30px; width: 30px; background-repeat: no-repeat; position: absolute; top: 276px; left: 422px;'></div>
+<div id='brazilsouth'        style='background: url(unknown.png); font-family:Arial, Helvetica,sans-serif; color:#4256f4;font-weight: bold;  background-size: 30px 30px; height: 30px; width: 30px; background-repeat: no-repeat; position: absolute; top: 623px; left: 545px;'></div>
+<div id='australiasoutheast' style='background: url(unknown.png); font-family:Arial, Helvetica,sans-serif; color:#4256f4;font-weight: bold;  background-size: 30px 30px; height: 30px; width: 30px; background-repeat: no-repeat; position: absolute; top: 696px; left: 1297px;'></div>
+<div id='australiaeast'      style='background: url(unknown.png); font-family:Arial, Helvetica,sans-serif; color:#4256f4;font-weight: bold;  background-size: 30px 30px; height: 30px; width: 30px; background-repeat: no-repeat; position: absolute; top: 649px; left: 1320px;'></div>
+<div id='centralindia'       style='background: url(unknown.png); font-family:Arial, Helvetica,sans-serif; color:#4256f4;font-weight: bold;  background-size: 30px 30px; height: 30px; width: 30px; background-repeat: no-repeat; position: absolute; top: 409px; left: 1038px;'></div>
+<div id='centralus'          style='background: url(unknown.png); font-family:Arial, Helvetica,sans-serif; color:#4256f4;font-weight: bold;  background-size: 30px 30px; height: 30px; width: 30px; background-repeat: no-repeat; position: absolute; top: 282px; left: 365px;'></div>
+<div id='eastasia'           style='background: url(unknown.png); font-family:Arial, Helvetica,sans-serif; color:#4256f4;font-weight: bold;  background-size: 30px 30px; height: 30px; width: 30px; background-repeat: no-repeat; position: absolute; top: 385px; left: 1182px;'></div>
+<div id='eastus'             style='background: url(unknown.png); font-family:Arial, Helvetica,sans-serif; color:#4256f4;font-weight: bold;  background-size: 30px 30px; height: 30px; width: 30px; background-repeat: no-repeat; position: absolute; top: 332px; left: 422px;'></div>
+<div id='eastus2'            style='background: url(unknown.png); font-family:Arial, Helvetica,sans-serif; color:#4256f4;font-weight: bold;  background-size: 30px 30px; height: 30px; width: 30px; background-repeat: no-repeat; position: absolute; top: 352px; left: 422px;'></div>
+<div id='japaneast'          style='background: url(unknown.png); font-family:Arial, Helvetica,sans-serif; color:#4256f4;font-weight: bold;  background-size: 30px 30px; height: 30px; width: 30px; background-repeat: no-repeat; position: absolute; top: 308px; left: 1287px;'></div>
+<div id='japanwest'          style='background: url(unknown.png); font-family:Arial, Helvetica,sans-serif; color:#4256f4;font-weight: bold;  background-size: 30px 30px; height: 30px; width: 30px; background-repeat: no-repeat; position: absolute; top: 325px; left: 1275px;'></div>
+<div id='koreacentral'       style='background: url(unknown.png); font-family:Arial, Helvetica,sans-serif; color:#4256f4;font-weight: bold;  background-size: 30px 30px; height: 30px; width: 30px; background-repeat: no-repeat; position: absolute; top: 318px; left: 1234px;'></div>
+<div id='koreasouth'         style='background: url(unknown.png); font-family:Arial, Helvetica,sans-serif; color:#4256f4;font-weight: bold;  background-size: 30px 30px; height: 30px; width: 30px; background-repeat: no-repeat; position: absolute; top: 337px; left: 1237px;'></div>
+<div id='northcentralus'     style='background: url(unknown.png); font-family:Arial, Helvetica,sans-serif; color:#4256f4;font-weight: bold;  background-size: 30px 30px; height: 30px; width: 30px; background-repeat: no-repeat; position: absolute; top: 293px; left: 384px;'></div>
+<div id='northeurope'        style='background: url(unknown.png); font-family:Arial, Helvetica,sans-serif; color:#4256f4;font-weight: bold;  background-size: 30px 30px; height: 30px; width: 30px; background-repeat: no-repeat; position: absolute; top: 220px; left: 698px;'></div>
+<div id='southcentralus'     style='background: url(unknown.png); font-family:Arial, Helvetica,sans-serif; color:#4256f4;font-weight: bold;  background-size: 30px 30px; height: 30px; width: 30px; background-repeat: no-repeat; position: absolute; top: 348px; left: 367px;'></div>
+<div id='southeastasia'      style='background: url(unknown.png); font-family:Arial, Helvetica,sans-serif; color:#4256f4;font-weight: bold;  background-size: 30px 30px; height: 30px; width: 30px; background-repeat: no-repeat; position: absolute; top: 479px; left: 1137px;'></div>
+<div id='southindia'         style='background: url(unknown.png); font-family:Arial, Helvetica,sans-serif; color:#4256f4;font-weight: bold;  background-size: 30px 30px; height: 30px; width: 30px; background-repeat: no-repeat; position: absolute; top: 424px; left: 1050px;'></div>
+<div id='uksouth'            style='background: url(unknown.png); font-family:Arial, Helvetica,sans-serif; color:#4256f4;font-weight: bold;  background-size: 30px 30px; height: 30px; width: 30px; background-repeat: no-repeat; position: absolute; top: 228px; left: 739px;'></div>
+<div id='ukwest'             style='background: url(unknown.png); font-family:Arial, Helvetica,sans-serif; color:#4256f4;font-weight: bold;  background-size: 30px 30px; height: 30px; width: 30px; background-repeat: no-repeat; position: absolute; top: 240px; left: 720px;'></div>
+<div id='westcentralus'      style='background: url(unknown.png); font-family:Arial, Helvetica,sans-serif; color:#4256f4;font-weight: bold;  background-size: 30px 30px; height: 30px; width: 30px; background-repeat: no-repeat; position: absolute; top: 296px; left: 312px;'></div>
+<div id='westeurope'         style='background: url(unknown.png); font-family:Arial, Helvetica,sans-serif; color:#4256f4;font-weight: bold;  background-size: 30px 30px; height: 30px; width: 30px; background-repeat: no-repeat; position: absolute; top: 228px; left: 758px;'></div>
+<div id='westindia'          style='background: url(unknown.png); font-family:Arial, Helvetica,sans-serif; color:#4256f4;font-weight: bold;  background-size: 30px 30px; height: 30px; width: 30px; background-repeat: no-repeat; position: absolute; top: 394px; left: 1020px;'></div>
+<div id='westus'             style='background: url(unknown.png); font-family:Arial, Helvetica,sans-serif; color:#4256f4;font-weight: bold;  background-size: 30px 30px; height: 30px; width: 30px; background-repeat: no-repeat; position: absolute; top: 311px; left: 258px;'></div>
+<div id='westus2'            style='background: url(unknown.png); font-family:Arial, Helvetica,sans-serif; color:#4256f4;font-weight: bold;  background-size: 30px 30px; height: 30px; width: 30px; background-repeat: no-repeat; position: absolute; top: 295px; left: 250px;'></div>
+
+
+
+
+<script th:inline="javascript">
+
+	$.ajaxSetup ({
+		cache: false
+	});
+
+
+	$('#canadaeast').css("background-image", "url( [[${canadaeast}]] )");
+	$('#canadacentral').css("background-image", "url( [[${canadacentral}]] )");
+	$('#brazilsouth').css("background-image", "url( [[${brazilsouth}]] )");
+	$('#australiasoutheast').css("background-image", "url( [[${australiasoutheast}]] )");
+	$('#australiaeast').css("background-image", "url( [[${australiaeast}]] )");
+	$('#centralindia').css("background-image", "url( [[${centralindia}]] )");
+	$('#centralus').css("background-image", "url( [[${centralus}]] )");
+	$('#eastasia').css("background-image", "url( [[${eastasia}]] )");
+	$('#eastus').css("background-image", "url( [[${eastus}]] )");
+	$('#eastus2').css("background-image", "url( [[${eastus2}]] )");
+	$('#japaneast').css("background-image", "url( [[${japaneast}]] )");
+	$('#japanwest').css("background-image", "url( [[${japanwest}]] )");
+	$('#koreacentral').css("background-image", "url( [[${koreacentral}]] )");
+	$('#koreasouth').css("background-image", "url( [[${koreasouth}]] )");
+	$('#northcentralus').css("background-image", "url( [[${northcentralus}]] )");
+	$('#northeurope').css("background-image", "url( [[${northeurope}]] )");
+	$('#southcentralus').css("background-image", "url( [[${southcentralus}]] )");
+	$('#southeastasia').css("background-image", "url( [[${southeastasia}]] )");
+	$('#southindia').css("background-image", "url( [[${southindia}]] )");
+	$('#uksouth').css("background-image", "url( [[${uksouth}]] )");
+	$('#ukwest').css("background-image", "url( [[${ukwest}]] )");
+	$('#westcentralus').css("background-image", "url( [[${westcentralus}]] )");
+	$('#westeurope').css("background-image", "url( [[${westeurope}]] )");
+	$('#westindia').css("background-image", "url( [[${westindia}]] )");
+	$('#westus').css("background-image", "url( [[${westus}]] )");
+	$('#westus2').css("background-image", "url( [[${westus2}]] )");
+
+
+</script>
+
+
+</body>
+</html>
