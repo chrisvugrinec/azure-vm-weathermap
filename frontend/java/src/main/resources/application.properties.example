@@ -4,6 +4,8 @@ clientId=535e93c9-SOMESECRETID-2c0528b7603b
 clientSecret=l02OvBr7WWinoAKk9SOMESECRETzyk2L3vA6dH4M=
 tenant=YOURTENANTNAME.onmicrosoft.com
 authority=https://login.windows.net/
-authenticatedpaths=/hello
+authenticatedpaths=/vmcr8tester
 server.contextPath=/
 server.session.persistent=true
+cosmoDBserviceEndpoint=https://yourcosmodb.documents.azure.com:443
+cosmoDBmasterkey=yourcosmodbmasterkey
