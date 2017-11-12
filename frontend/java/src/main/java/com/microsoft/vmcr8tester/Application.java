@@ -3,7 +3,8 @@ package com.microsoft.vmcr8tester;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.microsoft.vmcr8tester.com.microsoft.vmcr8tester.util.DataCollector;
+import com.microsoft.vmcr8tester.com.microsoft.vmcr8tester.util.CosmoDBDataCollectImpl;
+import com.microsoft.vmcr8tester.com.microsoft.vmcr8tester.util.CosmoDBDataCollectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
@@ -49,8 +50,8 @@ public class Application {
 	}
 
 	@Bean
-	public DataCollector dataCollector() {
-		return new DataCollector(cosmoDBserviceEndpoint,cosmoDBmasterkey);
+	public CosmoDBDataCollectService cosmodbDataCollector() {
+		return new CosmoDBDataCollectService(cosmoDBserviceEndpoint,cosmoDBmasterkey);
 	}
 
 

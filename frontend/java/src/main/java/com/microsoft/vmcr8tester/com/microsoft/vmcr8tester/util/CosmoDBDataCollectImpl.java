@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.microsoft.azure.documentdb.*;
 import com.microsoft.vmcr8tester.com.microsoft.vmcr8tester.model.AzureVM;
 import com.microsoft.vmcr8tester.com.microsoft.vmcr8tester.model.RegionResults;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.text.DateFormat;
@@ -11,8 +13,9 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
-public class DataCollector implements DataCollectorInterface{
+public abstract class CosmoDBDataCollectImpl implements DataCollectorInterface{
 
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private Database databaseCache;
     private String collectionLink = "dbs/db/colls/azurevms";
@@ -25,13 +28,21 @@ public class DataCollector implements DataCollectorInterface{
     private String RESULT_SLOW = "cloudy.png";
     private String RESULT_FAIL = "fail.png";
 
+    //  Within 3 minutes is OK (3 x 60 sec)
+    private static int TIME_LIMIT = 180;
+
     @Autowired
-    public DataCollector(String cosmoDBserviceEndpoint, String cosmoDBmasterkey){
+    public CosmoDBDataCollectImpl(String cosmoDBserviceEndpoint, String cosmoDBmasterkey){
 
         documentClient = new DocumentClient(cosmoDBserviceEndpoint , cosmoDBmasterkey, ConnectionPolicy.GetDefault(), ConsistencyLevel.Session);
         try{
             azurevmsCollectionCache = getAzureVMCollection();
-        }catch(Exception ex){}
+        }catch(Exception ex){
+            logger.error("Exception during initialization when creating connection to cosmo DataBase");
+        }
+    }
+
+    protected CosmoDBDataCollectImpl() {
     }
 
     private Database getAzureVMsDB(String dbName) throws Exception {
@@ -43,6 +54,7 @@ public class DataCollector implements DataCollectorInterface{
             if (databaseList.size() > 0) {
                 databaseCache = databaseList.get(0);
             } else {
+                logger.error("Exception Cosmo database does not exist");
                 throw new Exception("Database "+dbName+" does not exist");
             }
         }
@@ -68,6 +80,7 @@ public class DataCollector implements DataCollectorInterface{
             if (collectionList.size() > 0) {
                 azurevmsCollectionCache = collectionList.get(0);
             } else {
+                logger.error("Exception Cosmo Collection does not exist");
                 throw new Exception("Collection "+collectionName+" does not exist");
             }
 
@@ -84,11 +97,12 @@ public class DataCollector implements DataCollectorInterface{
 
     public String getTotalMachinesBuild() {
         String result = null;
+        String query = "SELECT value count(1) FROM azurevms";
         try{
-            Document aDoc = documentClient.queryDocuments(collectionLink, "SELECT value count(1) FROM azurevms", fo).getQueryIterable().toList().get(0);
+            Document aDoc = documentClient.queryDocuments(collectionLink, query, fo).getQueryIterable().toList().get(0);
             result = aDoc.get("_aggregate").toString();
         }catch(Exception ex){
-
+            logger.error("Exception while doing query: {0}",query);
         }
         return result;
     }
@@ -99,11 +113,11 @@ public class DataCollector implements DataCollectorInterface{
 
     private ArrayList<AzureVM> getTodaysAzureVMs(String region){
         ArrayList<AzureVM> result = new ArrayList<>();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        String query = "SELECT * FROM azurevms avms where startswith(avms.timecreated,'" + dateFormat.format(date) + "')";
 
         try {
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = new Date();
-            String query = "SELECT * FROM azurevms avms where startswith(avms.timecreated,'" + dateFormat.format(date) + "')";
             if (region != "ALL") {
                 query = "SELECT * FROM azurevms avms where startswith(avms.timecreated,'" + dateFormat.format(date) + "') and avms.region = '"+region+"'";
             }
@@ -114,7 +128,7 @@ public class DataCollector implements DataCollectorInterface{
             }
 
         }catch(Exception ex){
-            ex.printStackTrace();
+            logger.error("Exception while doing query: {0}",query);
         }
         return result;
     }
@@ -154,7 +168,7 @@ public class DataCollector implements DataCollectorInterface{
                 //  If avg buildtime  > 180 == SLOW
                 //  if latest result != SUCCESS ==> FAIL
                 double avgBuildTime = buildTimes/amountOfBuildsToday;
-                if(avgBuildTime<=180)
+                if(avgBuildTime<=TIME_LIMIT)
                     buildResult = RESULT_SUCCESS;
                 else
                     buildResult = RESULT_SLOW;
@@ -181,13 +195,14 @@ public class DataCollector implements DataCollectorInterface{
     public String getTotalMachinesBuildToday() {
         String result = null;
         Document aDoc = null;
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        String query = "SELECT value count(1) FROM azurevms avms where startswith(avms.timecreated,'"+ dateFormat.format(date) +"')";
         try{
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = new Date();
-            aDoc = documentClient.queryDocuments(collectionLink, "SELECT value count(1) FROM azurevms avms where startswith(avms.timecreated,'"+ dateFormat.format(date) +"')", fo).getQueryIterable().toList().get(0);
+            aDoc = documentClient.queryDocuments(collectionLink, query, fo).getQueryIterable().toList().get(0);
             result = aDoc.get("_aggregate").toString();
         }catch(Exception ex){
-            ex.printStackTrace();
+            logger.error("Exception while doing query: {0}",query);
         }
         return result;
     }

@@ -18,15 +18,16 @@ import java.util.List;
 public class WebController {
 
 
+
 	@Autowired
-	private DataCollectorInterface dataCollector;
+	private DataCollectorInterface cosmodbDataCollector;
 
 	@RequestMapping(value = "/vmcr8tester", method = { RequestMethod.GET, RequestMethod.POST })
 	public String gotoTool(ModelMap model, HttpServletRequest httpRequest) {
-		model.addAttribute("totalvms",dataCollector.getTotalMachinesBuild());
-		model.addAttribute("totalvmstoday",dataCollector.getTotalMachinesBuildToday());
+		model.addAttribute("totalvms",cosmodbDataCollector.getTotalMachinesBuild());
+		model.addAttribute("totalvmstoday",cosmodbDataCollector.getTotalMachinesBuildToday());
 
-		List<RegionResults> rResults = dataCollector.getMachineResults();
+		List<RegionResults> rResults = cosmodbDataCollector.getMachineResults();
 		for(RegionResults rResult : rResults ){
 			model.addAttribute(rResult.getRegion(),rResult.getResult());
 

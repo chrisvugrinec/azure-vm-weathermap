@@ -8,4 +8,6 @@ public interface DataCollectorInterface {
     public String getTotalMachinesBuild();
     public String getTotalMachinesBuildToday();
     public List<RegionResults> getMachineResults();
+    public String getTotalInQueue();
+
 }
