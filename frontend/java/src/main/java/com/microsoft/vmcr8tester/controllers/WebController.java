@@ -40,7 +40,7 @@ public class WebController {
 			model.addAttribute(rResult.getRegion(),rResult.getResult());
 
 		}
-		model.addAttribute("buildQ",redisDataCollectService.getQueue());
+//		model.addAttribute("buildQ",redisDataCollectService.getQueue());
 
 		return "vmcr8tester";
 	}
