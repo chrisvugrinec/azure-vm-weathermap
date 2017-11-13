@@ -4,10 +4,9 @@ import com.microsoft.vmcr8tester.com.microsoft.vmcr8tester.model.RegionResults;
 
 import java.util.List;
 
-public interface DataCollectorInterface {
+public interface CosmoDBInterface {
+
     public String getTotalMachinesBuild();
     public String getTotalMachinesBuildToday();
     public List<RegionResults> getMachineResults();
-    public String getTotalInQueue();
-
 }

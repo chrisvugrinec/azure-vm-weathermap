@@ -3,8 +3,10 @@ package com.microsoft.vmcr8tester;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.microsoft.vmcr8tester.com.microsoft.vmcr8tester.util.CosmoDBDataCollectImpl;
 import com.microsoft.vmcr8tester.com.microsoft.vmcr8tester.util.CosmoDBDataCollectService;
+import com.microsoft.vmcr8tester.com.microsoft.vmcr8tester.util.CosmoDBInterface;
+import com.microsoft.vmcr8tester.com.microsoft.vmcr8tester.util.RedisCacheInterface;
+import com.microsoft.vmcr8tester.com.microsoft.vmcr8tester.util.RedisDataCollectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
@@ -30,6 +32,12 @@ public class Application {
 	@Value("${cosmoDBmasterkey}")
 	private String cosmoDBmasterkey;
 
+	@Value("${redisCachename}")
+	private String redisCachename;
+
+	@Value("${redisCacheKey}")
+	private String redisCacheKey;
+
 
 	public static void main(String[] args) throws Throwable {
 		SpringApplication.run(Application.class, args);
@@ -50,10 +58,15 @@ public class Application {
 	}
 
 	@Bean
-	public CosmoDBDataCollectService cosmodbDataCollector() {
+	public CosmoDBDataCollectService cosmoDBDataCollectService() {
 		return new CosmoDBDataCollectService(cosmoDBserviceEndpoint,cosmoDBmasterkey);
+
 	}
 
+	@Bean
+	public RedisDataCollectService redisDataCollectService() {
+		return new RedisDataCollectService(redisCachename,redisCacheKey);
+	}
 
 
 }

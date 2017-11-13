@@ -20,6 +20,20 @@
 
      <div class="broadcasts1" style='font-family:Arial, Helvetica,sans-serif; color:#4256f4;font-weight: bold;  background-size: 30px 30px; height: 30px; width: 200px; background-repeat: no-repeat; position: absolute; top: 50px; left: 1000px;'><p th:text="'Total builds: ' + ${totalvms} " /></div>
      <div class="broadcasts2" style='font-family:Arial, Helvetica,sans-serif; color:#4256f4;font-weight: bold;  background-size: 30px 30px; height: 30px; width: 200px; background-repeat: no-repeat; position: absolute; top: 85px; left: 1000px;'><p th:text="'Total builds today: ' + ${totalvmstoday} " /></div>
+	 <div class="broadcasts3" style='font-family:Arial, Helvetica,sans-serif; color:#4256f4;font-weight: bold;  background-size: 30px 30px; height: 30px; width: 200px; background-repeat: no-repeat; position: absolute; top: 50px; left: 1200px;'><p>BuildQ :
+
+		 <form style="display:inline-block" th:action="@{/search}" th:object="${buildQ}" method="get">
+			 <select id="optionsList" name="optionsListId">
+				 <option th:each="option : ${buildQ}" th:value="${option.getMachine()}"
+						 th:text="${option.getMachine()}">Options</option>
+			 </select>
+		 </form>
+
+	 </p>
+	 </div>
+
+
+
 	 <div class="worldmap"></div>
 	 <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 
