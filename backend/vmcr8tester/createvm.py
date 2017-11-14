@@ -76,7 +76,7 @@ def createVM():
         createVM.timecreated = json_data['properties']['timestamp']                                               
     except:                                                                                                       
         print("exception during parsing")                                                                         
-        createVM.result = out                                                                                     
+        createVM.result = err                                                                                     
         dt = datetime.now()                                                                                       
         createVM.timecreated = '{:%d %m %Y - %H:%M}'.format(dt)                                                   
     popen.wait()                                                                                                  
