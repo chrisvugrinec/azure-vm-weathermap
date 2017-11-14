@@ -1,0 +1,2 @@
+https://github.com/Microsoft/OMS-docker/tree/master/Kubernetes
+https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-kubernetes-oms

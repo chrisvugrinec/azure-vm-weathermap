@@ -1,5 +1,4 @@
 import redis
-import nltk
 import json
 import subprocess
 import sys
@@ -9,7 +8,6 @@ import pydocumentdb.document_client as document_client
 from timeit import Timer
 import time
 from datetime import datetime
-nltk.download('punkt')
 from azure.common.credentials import ServicePrincipalCredentials
 from azure.mgmt.keyvault import KeyVaultManagementClient
 from azure.keyvault import KeyVaultClient,KeyVaultId
@@ -104,7 +102,7 @@ for vmkey in vmkeys:
         print("delete key: ",vmkey.decode('UTF-8'))                                                               
         r.delete(vmkey)                                                                                           
         if value:                                                                                                 
-            tokens = nltk.word_tokenize(value)                                                                    
+            tokens = value.split()                                                                    
             print("creating and deleting vm: ",tokens[1]," in location: ",tokens[0])                              
             machine = tokens[1]                                                                                   
             region = tokens[0]                                                                                    
