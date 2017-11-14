@@ -1,0 +1,11 @@
+FROM vmcr8tester.azurecr.io/vmcr8er:2.2
+MAINTAINER chvugrin@microsoft.com
+
+WORKDIR "/opt/azure-vmtest/"
+#CMD ["./login.sh"]
+
+ENV AZURE_USER='http://vmcr8test.microsoft.onmicrosoft.com'
+ENV AZURE_PWD='SECCCCRET'
+ENV AZURE_TENANT=SEEECRRET_TENTNATID
+
+ENTRYPOINT [ "./start.sh" ]
