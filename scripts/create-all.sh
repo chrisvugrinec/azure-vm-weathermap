@@ -42,7 +42,7 @@ az cosmosdb create -g $solname -n $solname
 az keyvault create -n $solname -g $solname
 
 # Create Managed Kubernetes
-az aks create -g $solname-k8 -n $solname --service-principal http://$solname --client-secret $password
+az aks create -g $solname-k8 -n $solname --service-principal http://$solname --client-secret $password --kubernetes-version 1.8.1 --generate-ssh-keys
 
 # Creating vnets
 for location in $(az account list-locations | jq -r .[].name)                                                                                                                 
