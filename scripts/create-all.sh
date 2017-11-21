@@ -29,6 +29,9 @@ then
    exit 1
 fi
 
+# Create Managed Kubernetes               
+az aks create -g $solname-k8 -n $solname --service-principal http://$solname --client-secret $password --kubernetes-version 1.8.1
+
 # Create container registry
 az acr create -n $solname -g $solname --admin-enabled true --sku Basic
 
@@ -41,8 +44,6 @@ az cosmosdb create -g $solname -n $solname
 # Create keyvault
 az keyvault create -n $solname -g $solname
 
-# Create Managed Kubernetes
-az aks create -g $solname-k8 -n $solname --service-principal http://$solname --client-secret $password --kubernetes-version 1.8.1
 
 # Creating vnets
 for location in $(az account list-locations | jq -r .[].name)                                                                                                                 
