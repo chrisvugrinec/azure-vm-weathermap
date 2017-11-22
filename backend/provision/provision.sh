@@ -1,4 +1,5 @@
 #!/bin/bash
+./login.sh
 for location in $(az account list-locations | jq -r .[].name)
 do
   counter=0

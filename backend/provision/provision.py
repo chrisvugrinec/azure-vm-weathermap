@@ -19,7 +19,7 @@ client = KeyVaultClient(
 KEYVAULT='https://'+solname+'.vault.azure.net'
 secret_bundle = client.set_secret(KEYVAULT, 'dummy', '')
 secret_id = KeyVaultId.parse_secret_id(secret_bundle.id)
-redis_secret=client.get_secret(KEYVAULT, 'vmcr8tester-redis-pwd',secret_id.version_none).value
+redis_secret=client.get_secret(KEYVAULT, 'vmcr8tester-redis-pw',secret_id.version_none).value
 
 key = sys.argv[1]
 value = sys.argv[2]

@@ -6,8 +6,6 @@ echo "please select subscription: "
 read sub
 az account set --subscription $sub
 
-
-
 echo "solution name: "
 read solname
 echo "password used: "

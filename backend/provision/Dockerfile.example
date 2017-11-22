@@ -8,7 +8,7 @@ COPY  provision.sh /opt/azure-vmtest/
 COPY  cert.pem /opt/azure-vmtest/
 COPY  login.sh /opt/azure-vmtest/
 
-CMD ["pip","install","redis"]
+RUN ["pip","install","redis"]
 
 ENV AZURE_USER='http://XXX_SOLUTION_NAME_XXX'
 ENV AZURE_PWD='XXX_PASSWORD_XXX'
@@ -16,4 +16,4 @@ ENV AZURE_TENANT=XXX_TENANTID_XXX
 
 CMD ["/opt/azure-vmtest/login.sh"]
 
-#ENTRYPOINT [ "./start.sh" ]
+ENTRYPOINT [ "./provision.sh" ]
