@@ -29,6 +29,9 @@ chmod 750 login.sh
 cat createvm.sh.example | sed  's/XXX_SOLUTION_NAME_XXX/'$solname'/' >createvm.sh
 chmod 750 createvm.sh
 
+cat cleanupvm.sh.example | sed  's/XXX_SOLUTION_NAME_XXX/'$solname'/' >cleanupvm.sh
+chmod 750 cleanupvm.sh
+
 docker build -t $solname-create:1.0 .
 
 #az login --service-principal -u http://YOURAPPID -p /root/LOCATIONOFYOUR.PEMFILE --tenant TENANTID

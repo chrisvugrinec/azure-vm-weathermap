@@ -16,3 +16,4 @@ backend/vmcr8tester/cert.pem
 backend/vmcr8tester/login.sh
 backend/vmcr8tester/login.shn
 backend/vmcr8tester/createvm.sh
+backend/vmcr8tester/cleanupvm.sh

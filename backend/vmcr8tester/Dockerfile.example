@@ -8,6 +8,7 @@ COPY  createvm.py  /opt/azure-vmtest/
 COPY  createvm.sh  /opt/azure-vmtest/
 COPY  azurevm.json  /opt/azure-vmtest/
 COPY  login.sh /opt/azure-vmtest/
+COPY  cleanupvm.sh /opt/azure-vmtest/
 
 RUN ["pip","install","redis"]
 RUN ["pip","install","azure-cosmosdb-table"]
