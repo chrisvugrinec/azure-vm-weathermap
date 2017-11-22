@@ -27,6 +27,7 @@ chmod 750 login.sh
 
 # Create required shell script
 cat createvm.sh.example | sed  's/XXX_SOLUTION_NAME_XXX/'$solname'/' >createvm.sh
+chmod 750 createvm.sh
 
 docker build -t $solname-create:1.0 .
 
