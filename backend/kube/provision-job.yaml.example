@@ -11,4 +11,6 @@ spec:
           containers:
           - name: cvugrinecapp1
             image: cvugrinecapp1.azurecr.io/cvugrinecapp1:latest
+          imagePullSecrets:
+          - name: cvugrinecapp1
           restartPolicy: OnFailure
