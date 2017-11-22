@@ -1,0 +1,19 @@
+FROM azuresdk/azure-cli-python
+MAINTAINER chvugrin@microsoft.com
+
+WORKDIR "/opt/azure-vmtest/"
+COPY  cleanup.sh /opt/azure-vmtest/
+COPY  provision.py  /opt/azure-vmtest/
+COPY  provision.sh /opt/azure-vmtest/
+COPY  cert.pem /opt/azure-vmtest/
+COPY  login.sh /opt/azure-vmtest/
+
+CMD ["pip","install","redis"]
+
+ENV AZURE_USER='http://XXX_SOLUTION_NAME_XXX'
+ENV AZURE_PWD='XXX_PASSWORD_XXX'
+ENV AZURE_TENANT=XXX_TENANTID_XXX
+
+CMD ["/opt/azure-vmtest/login.sh"]
+
+#ENTRYPOINT [ "./start.sh" ]
