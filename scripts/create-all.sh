@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#az login
+az login
 az account list -o table
 echo "please select subscription: "
 read sub
