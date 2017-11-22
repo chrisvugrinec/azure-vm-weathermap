@@ -1,15 +1,15 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: provision-job
+  name: create-job
 spec:
-  schedule: "0 22,04,10,16 * * *"
+  schedule: "10 22,04,10,16 * * *"
   jobTemplate:
     spec:
       template:
         spec:
           containers:
-          - name: cvugrinecapp1-provision
+          - name: cvugrinecapp1-create
             image: cvugrinecapp1.azurecr.io/cvugrinecapp1:latest
           imagePullSecrets:
           - name: cvugrinecapp1
