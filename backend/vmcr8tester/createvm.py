@@ -60,7 +60,7 @@ def createVM():
                                                                                                                                                                                
     createVM.machine = machine                                                                                                                                                 
     createVM.region = region                                                                                                                                                   
-    vnetname = 'vmcr8tester-vnet-'+region                                                                                                                                      
+    vnetname = solname+'-vnet-'+region                                                                                                                                      
     createVM.id = machine + str(time.time())                                                                                                                                   
     createVMargs = ("/opt/azure-vmtest/createvm.sh",machine,region,vnetname)                                                                                                   
     createVM.result = "unknown"                                                                                                                                                
