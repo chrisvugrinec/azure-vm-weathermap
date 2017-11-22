@@ -7,3 +7,12 @@ frontend/java/.idea/
 frontend/java/src/main/resources/application.properties
 frontend/java/target/
 backend/oms/omsagent.yaml
+backend/provision/Dockerfilen
+backend/provision/cert.pem
+backend/provision/login.sh
+backend/provision/login.shn
+backend/vmcr8tester/Dockerfilen
+backend/vmcr8tester/cert.pem
+backend/vmcr8tester/login.sh
+backend/vmcr8tester/login.shn
+

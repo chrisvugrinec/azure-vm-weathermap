@@ -1,11 +1,21 @@
-FROM vmcr8tester.azurecr.io/vmcr8er:2.2
+FROM azuresdk/azure-cli-python
 MAINTAINER chvugrin@microsoft.com
 
 WORKDIR "/opt/azure-vmtest/"
-#CMD ["./login.sh"]
 
-ENV AZURE_USER='http://vmcr8test.microsoft.onmicrosoft.com'
-ENV AZURE_PWD='SECCCCRET'
-ENV AZURE_TENANT=SEEECRRET_TENTNATID
+COPY  cert.pem  /opt/azure-vmtest/
+COPY  createvm.py  /opt/azure-vmtest/
+COPY  createvm.sh  /opt/azure-vmtest/
+COPY  azurevm.json  /opt/azure-vmtest/
+COPY  login.sh /opt/azure-vmtest/
 
-ENTRYPOINT [ "./start.sh" ]
+RUN ["pip","install","redis"]
+RUN ["pip","install","azure-cosmosdb-table"]
+
+ENV AZURE_USER='http://XXX_SOLUTION_NAME_XXX'
+ENV AZURE_PWD='XXX_PASSWORD_XXX'
+ENV AZURE_TENANT=XXX_TENANTID_XXX
+
+CMD ["/opt/azure-vmtest/login.sh"]
+
+#ENTRYPOINT [ "./provision.sh" ]
