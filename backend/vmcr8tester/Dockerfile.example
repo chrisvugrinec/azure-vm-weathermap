@@ -17,6 +17,6 @@ ENV AZURE_USER='http://XXX_SOLUTION_NAME_XXX'
 ENV AZURE_PWD='XXX_PASSWORD_XXX'
 ENV AZURE_TENANT=XXX_TENANTID_XXX
 
-CMD ["/opt/azure-vmtest/login.sh"]
+RUN ["/opt/azure-vmtest/login.sh"]
 
-#ENTRYPOINT [ "python","createvm.py" ]
+ENTRYPOINT [ "python","createvm.py" ]
