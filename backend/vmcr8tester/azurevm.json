@@ -70,7 +70,7 @@
 				"osProfile": {
 					"computerName": "[variables('vmName')]",
 					"adminUsername": "[variables('username')]",
-					"adminPassword": "[variables('username')]"
+					"adminPassword": "HelloWorld123"
 				},
 				"storageProfile": {
 					"imageReference": {
