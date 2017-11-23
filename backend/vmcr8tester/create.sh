@@ -16,20 +16,20 @@ file=$(az ad sp create-for-rbac -n $solname-create --role="Contributor" --scopes
 mv $file cert.pem
 
 # Create Dockerfile
-cat Dockerfile.example | sed  's/XXX_SOLUTION_NAME_XXX/'$solname'/' >Dockerfile
+cat Dockerfile.example | sed  's/XXX_SOLUTION_NAME_XXX/'$solname'/g' >Dockerfile
 sed -in 's/XXX_PASSWORD_XXX/'$password'/' Dockerfile
 sed -in 's/XXX_TENANTID_XXX/'$tenantId'/' Dockerfile
 
 # Create login script
-cat login.sh.example | sed  's/XXX_SOLUTION_NAME_XXX/'$solname-create'/' >login.sh
+cat login.sh.example | sed  's/XXX_SOLUTION_NAME_XXX/'$solname-create'/g' >login.sh
 sed -in 's/XXX_TENANTID_XXX/'$tenantId'/' login.sh
 chmod 750 login.sh
 
 # Create required shell script
-cat createvm.sh.example | sed  's/XXX_SOLUTION_NAME_XXX/'$solname'/' >createvm.sh
+cat createvm.sh.example | sed  's/XXX_SOLUTION_NAME_XXX/'$solname'/g' >createvm.sh
 chmod 750 createvm.sh
 
-cat cleanupvm.sh.example | sed  's/XXX_SOLUTION_NAME_XXX/'$solname'/' >cleanupvm.sh
+cat cleanupvm.sh.example | sed  's/XXX_SOLUTION_NAME_XXX/'$solname'/g' >cleanupvm.sh
 chmod 750 cleanupvm.sh
 
 docker build -t $solname-create:1.0 .
