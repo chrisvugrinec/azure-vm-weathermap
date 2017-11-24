@@ -1,8 +1,10 @@
-import redis                                                                                                                                            import json                                                                                                                                             import subprocess                                                                                                                                                              
-import sys                                                                                                                                                                     
-import os                                                                                                                                                                      
-import pydocumentdb;                                                                                                                                                           
-import pydocumentdb.document_client as document_client                                                                                                                         
+import redis
+import json
+import subprocess
+import sys                                                                                                                            
+import os                                                                                                                                               
+import pydocumentdb                                                                                                                                 
+import pydocumentdb.document_client as document_client                                                                                                                        
 from timeit import Timer                                                                                                                                                       
 import time                                                                                                                                                                    
 from datetime import datetime                                                                                                                                                  
