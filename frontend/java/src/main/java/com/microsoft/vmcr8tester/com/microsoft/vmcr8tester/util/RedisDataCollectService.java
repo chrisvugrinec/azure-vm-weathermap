@@ -12,18 +12,19 @@ import java.util.Map;
 import java.util.Set;
 
 @Service
-public class RedisDataCollectService implements RedisCacheInterface{
+public class RedisDataCollectServicex implements RedisCacheInterface{
 
     JedisShardInfo shardInfo;
     Jedis jedis;
 
+    /*
     @Autowired
-    public RedisDataCollectService(String redisCachename, String redisCacheKey){
+    public RedisDataCollectServicex(String redisCachename, String redisCacheKey){
         shardInfo = new JedisShardInfo(redisCachename+".redis.cache.windows.net", 6380, true);
         shardInfo.setPassword(redisCacheKey);
         jedis = new Jedis(shardInfo);
     }
-
+*/
 
     public List<BuildItem> getQueue() {
 
