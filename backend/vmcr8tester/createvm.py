@@ -1,6 +1,4 @@
-import redis                                                                                                                                                                   
-import json                                                                                                                                                                    
-import subprocess                                                                                                                                                              
+import redis                                                                                                                                            import json                                                                                                                                             import subprocess                                                                                                                                                              
 import sys                                                                                                                                                                     
 import os                                                                                                                                                                      
 import pydocumentdb;                                                                                                                                                           
@@ -27,7 +25,7 @@ KEYVAULT='https://'+solname+'.vault.azure.net'
 secret_bundle = client.set_secret(KEYVAULT, 'dummy', '')                                                                                                                       
 secret_id = KeyVaultId.parse_secret_id(secret_bundle.id)                                                                                                                       
 redis_secret=client.get_secret(KEYVAULT, 'vmcr8tester-redis-pw',secret_id.version_none).value                                                                                  
-cosmosdb_secret=client.get_secret(KEYVAULT, 'vmc8tester-cosmosdb-pw',secret_id.version_none).value                                                                             
+cosmosdb_secret=client.get_secret(KEYVAULT, 'vmcr8tester-cosmosdb-pw',secret_id.version_none).value                                                                             
                                                                                                                                                                                
 config = {                                                                                                                                                                     
     'ENDPOINT': 'https://'+solname+'.documents.azure.com',                                                                                                                     
