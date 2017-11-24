@@ -31,6 +31,7 @@ public class WebErrorController implements ErrorController {
 	@ResponseStatus(HttpStatus.UNAUTHORIZED)
 	public ModelAndView handleUnauthorized(HttpServletRequest req, HttpServletResponse res) {
 		ModelAndView mav = new ModelAndView();
+
 		mav.addObject("errors", "you are not authorized to view this page");
 		mav.setViewName("error");
 		return mav;

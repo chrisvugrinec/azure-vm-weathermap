@@ -1,0 +1,16 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: provision-job
+spec:
+  schedule: "0 22,04,10,16 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: cvugrinecapp2-provision
+            image: cvugrinecapp2.azurecr.io/cvugrinecapp2-provision:latest
+          imagePullSecrets:
+          - name: cvugrinecapp2
+          restartPolicy: OnFailure
