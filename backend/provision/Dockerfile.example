@@ -16,4 +16,4 @@ ENV AZURE_TENANT=XXX_TENANTID_XXX
 
 CMD ["/opt/azure-vmtest/login.sh"]
 
-#ENTRYPOINT [ "./provision.sh" ]
+ENTRYPOINT [ "./provision.sh" ]
