@@ -16,3 +16,5 @@ backend/vmcr8tester/login.sh
 backend/vmcr8tester/login.shn
 backend/vmcr8tester/createvm.sh
 backend/vmcr8tester/cleanupvm.sh
+backend/provision/Dockerfile
+backend/vmcr8tester/Dockerfile
