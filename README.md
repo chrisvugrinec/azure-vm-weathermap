@@ -7,9 +7,15 @@ Frontend is a java Springboot app which you can only access when Authentication 
 
 ## How
 
+### pre requisites
 Pre requisites are:
-* docker (https://docs.docker.com/install/)
+* git client; repo client (https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+* docker; container tool (https://docs.docker.com/install/)
 * az-cli; cli for azure  (https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest)
 * kubectl; cli for kubernetes cluster (https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 * helm; package manager kubernetes (https://github.com/kubernetes/helm/blob/master/docs/install.md)
 * draft; tool for dev on kubernetes/azure (https://github.com/Azure/draft/blob/master/docs/install.md) 
+
+### steps
+* git clone https://github.com/chrisvugrinec/azure-vm-weathermap.git
+* 
