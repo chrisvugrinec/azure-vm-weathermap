@@ -14,3 +14,4 @@ public class AzureVM {
     private double time;
 
 }
+    
