@@ -1,6 +1,6 @@
 #!/bin/bash
 ./login.sh
-for location in $(az account list-locations | jq -r .[].name)
+for location in $(az account list-locations | jq -r .[].name | grep -v france )
 do
   counter=0
   for machine in $(az vm list-skus -l $location --query [].name | grep Standard_DS2 | grep -v Promo)
