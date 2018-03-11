@@ -4,11 +4,12 @@ import subprocess
 import sys
 import os
 import pydocumentdb
-import pydocumentdb.document_client as document_clien
-from timeit import Timer                                                                                                                                     import time
+import pydocumentdb.document_client as document_client
+import time
+from timeit import Timer
 from datetime import datetime
 from azure.common.credentials import ServicePrincipalCredentials
-from azure.mgmt.keyvault import KeyVaultManagementClien
+from azure.mgmt.keyvault import KeyVaultManagementClient
 from azure.keyvault import KeyVaultClient,KeyVaultId
 solname=os.getenv('AZURE_USER').replace('http://','')
 
