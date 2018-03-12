@@ -2,20 +2,19 @@ package com.microsoft.vmcr8tester.com.microsoft.vmcr8tester.util;
 
 import com.google.gson.Gson;
 import com.microsoft.azure.documentdb.*;
+import com.microsoft.vmcr8tester.Application;
 import com.microsoft.vmcr8tester.com.microsoft.vmcr8tester.model.AzureVM;
 import com.microsoft.vmcr8tester.com.microsoft.vmcr8tester.model.RegionResults;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.logging.Logger;
 
 @Service
 public class CosmoDBDataCollectService implements CosmoDBInterface{
 
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private Database databaseCache;
     private String collectionLink = "dbs/db/colls/azurevms";
@@ -28,6 +27,8 @@ public class CosmoDBDataCollectService implements CosmoDBInterface{
     private String RESULT_SLOW = "cloudy.png";
     private String RESULT_FAIL = "fail.png";
 
+    private static final Logger logger = Logger.getLogger(Application.class.getName());
+    
     //  Within 3 minutes is OK (3 x 60 sec)
     private static int TIME_LIMIT = 180;
 
@@ -41,7 +42,8 @@ public class CosmoDBDataCollectService implements CosmoDBInterface{
         try{
             azurevmsCollectionCache = getAzureVMCollection();
         }catch(Exception ex){
-            logger.error("Exception during initialization when creating connection to cosmo DataBase");
+
+            //logger.log(Level.ERROR,"Exception during initialization when creating connection to cosmo DataBase");
         }
     }
 
@@ -55,7 +57,7 @@ public class CosmoDBDataCollectService implements CosmoDBInterface{
             if (databaseList.size() > 0) {
                 databaseCache = databaseList.get(0);
             } else {
-                logger.error("Exception Cosmo database does not exist");
+                //logger.log(Level.ERROR,"Exception Cosmo database does not exist");
                 throw new Exception("Database "+dbName+" does not exist");
             }
         }
@@ -81,7 +83,7 @@ public class CosmoDBDataCollectService implements CosmoDBInterface{
             if (collectionList.size() > 0) {
                 azurevmsCollectionCache = collectionList.get(0);
             } else {
-                logger.error("Exception Cosmo Collection does not exist");
+                //logger.log(Level.ERROR,"Exception Cosmo Collection does not exist");
                 throw new Exception("Collection "+collectionName+" does not exist");
             }
 
@@ -103,7 +105,7 @@ public class CosmoDBDataCollectService implements CosmoDBInterface{
             Document aDoc = documentClient.queryDocuments(collectionLink, query, fo).getQueryIterable().toList().get(0);
             result = aDoc.get("_aggregate").toString();
         }catch(Exception ex){
-            logger.error("Exception while doing query: {0}",query);
+            //logger.log(Level.ERROR,"Exception while doing query: {0}",query);
         }
         return result;
     }
@@ -129,7 +131,7 @@ public class CosmoDBDataCollectService implements CosmoDBInterface{
             }
 
         }catch(Exception ex){
-            logger.error("Exception while doing query: {0}",query);
+            //logger.log(Level.ERROR,"Exception while doing query: {0}",query);
         }
         return result;
     }
@@ -203,7 +205,7 @@ public class CosmoDBDataCollectService implements CosmoDBInterface{
             aDoc = documentClient.queryDocuments(collectionLink, query, fo).getQueryIterable().toList().get(0);
             result = aDoc.get("_aggregate").toString();
         }catch(Exception ex){
-            logger.error("Exception while doing query: {0}",query);
+            //logger.log(Level.ERROR,"Exception while doing query: {0}",query);
         }
         return result;
     }

@@ -1,8 +1,11 @@
 package com.microsoft.vmcr8tester;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+//import java.util.logging.Level;
+//import java.util.logging.Logger;
 
+import com.microsoft.azure.keyvault.KeyVaultClient;
+import com.microsoft.azure.keyvault.models.SecretBundle;
+import com.microsoft.vmcr8tester.auth.ClientSecretKeyVaultCredential;
 import com.microsoft.vmcr8tester.com.microsoft.vmcr8tester.util.CosmoDBDataCollectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,20 +17,37 @@ import org.springframework.context.annotation.Bean;
 
 import com.microsoft.vmcr8tester.auth.AdalFilter;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 @SpringBootApplication
 public class Application {
 
 	private @Autowired AutowireCapableBeanFactory beanFactory;
 	private static final Logger logger = Logger.getLogger(Application.class.getName());
 
+	@Value("${clientId}")
+	private String clientId;
+
+	@Value("${clientSecret}")
+	private String clientSecret;
+
+	@Value("${keyvaultClientId}")
+	private String keyvaultClientId;
+
+	@Value("${keyvaultClientSecret}")
+	private String keyvaultClientSecret;
+
+
+	@Value("${keyvaultURL}")
+	private String keyvaultURL;
+
+
 	@Value("${authenticatedpaths}")
 	private String authenticatedpaths;
 
 	@Value("${cosmoDBserviceEndpoint}")
 	private String cosmoDBserviceEndpoint;
-
-	@Value("${cosmoDBmasterkey}")
-	private String cosmoDBmasterkey;
 
 
 
@@ -49,8 +69,11 @@ public class Application {
 		return registration;
 	}
 
+
 	@Bean
 	public CosmoDBDataCollectService cosmoDBDataCollectService() {
+		KeyVaultClient keyVaultBean = new KeyVaultClient( new ClientSecretKeyVaultCredential(keyvaultClientId, keyvaultClientSecret));
+		String cosmoDBmasterkey = keyVaultBean.getSecret( keyvaultURL, "vmcr8tester-cosmosdb-pw" ).value();
 		return new CosmoDBDataCollectService(cosmoDBserviceEndpoint,cosmoDBmasterkey);
 
 	}
